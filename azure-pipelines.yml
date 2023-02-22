@@ -4,14 +4,11 @@ trigger:
 - main
 
 variables:
-  resourceGroupName: 'example'
+  resourceGroupName: 'rg-az-devops'
   location: 'eastus'
   azureSubscription: 'AzureConnection'
   resourcePrefix: 'bicep'
 
-
-
-appendCommitMessageToRunName:
 pool:
   vmImage: ubuntu-latest
 
@@ -20,3 +17,12 @@ stages:
   jobs:
   - job: Build
     steps:
+
+- task: AzureCLI@2
+  displayName: "Création de l'artifact Bicep"
+  inputs:
+    azureSubscription: 'Abonnement de tests 🧪(ff694d4d-a3d4-46aa-91f9-4b1325565bf4)'
+    scriptType: 'pscore'  
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az bicep build --file main.bicep'
+
